@@ -55,8 +55,10 @@ public class FenetrePrincipale extends JFrame {
 		setTitle("Projet - EditTab");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setJMenuBar(createMenuBar());
-		setLocation(150, 150);
-		setSize(400, 400);
+		//setLocationByPlatform(true);
+		//setLocationRelativeTo(null);
+		getContentPane().setBackground(Color.BLACK);
+		setSize(1024, 800);
 		setVisible(true);
 	}
 	
@@ -87,7 +89,9 @@ public class FenetrePrincipale extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					removePanneau();
 					getContentPane().add(getNewPartition());
-					setSize(530, 380);
+					setSize(getContentPane().getWidth(), getContentPane().getHeight());
+					//setSize(530, 380);
+					//getContentPane().setBackground(Color.black);
 				}
 			});
 		}
