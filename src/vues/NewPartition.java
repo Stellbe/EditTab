@@ -9,8 +9,10 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -22,14 +24,23 @@ import javax.swing.DropMode;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class NewPartition extends JPanel {
 	
 	private JTextField tfNotes, tfName;
-	private JButton bDo, bRe, bMi, bFa, bSo, bLa, bti, bDo1, bRe1,
-					bMi1, bFa1, bSo1, bLa1, bti1, bDo2, btSave, btClear;
+	private JButton bDo, bRe, bMi, bFa, bSo, bLa, bTi, bDo1, bRe1,
+					bMi1, bFa1, bSo1, bLa1, bTi1, bDo2, btSave, btClear;
 	
 	JPanel panel1, panel2;
+	
+	private JLabel labelTest;
+	private BufferedImage image;
+	private GridLayout gridNote;
+	int i = 0;
 	
 	public NewPartition() {
 		setBackground(Color.ORANGE);
@@ -40,7 +51,7 @@ public class NewPartition extends JPanel {
 		
 	        bDo2 = new JButton();
 	        bLa1 = new JButton();
-	        bti1 = new JButton();
+	        bTi1 = new JButton();
 	        bFa1 = new JButton();
 	        bSo1 = new JButton();
 	        bRe1 = new JButton();
@@ -51,14 +62,18 @@ public class NewPartition extends JPanel {
 	        bFa = new JButton();
 	        bMi = new JButton();
 	        bDo = new JButton();
-	        bti = new JButton();
+	        bTi = new JButton();
 	        bLa = new JButton();
 	        
 	        btClear = new JButton();
 	        btSave = new JButton();
 	        
         panel2 = new JPanel();
-
+        
+        gridNote = new GridLayout(1, 0);
+        
+        
+        
         //-----------------------------------------------------
         panel1.setBackground(new java.awt.Color(247, 20, 20));
 
@@ -70,8 +85,8 @@ public class NewPartition extends JPanel {
         bLa1.setText("bLa1");
         bLa1.addActionListener(new ChiffreListener());
 
-        bti1.setText("bti1");
-        bti1.addActionListener(new ChiffreListener());
+        bTi1.setText("bTi1");
+        bTi1.addActionListener(new ChiffreListener());
 
         bFa1.setText("bFa1");
         bFa1.addActionListener(new ChiffreListener());
@@ -110,8 +125,8 @@ public class NewPartition extends JPanel {
         bDo.setText("bDo");
         bDo.addActionListener(new ChiffreListener());
         
-        bti.setText("bti");
-        bti.addActionListener(new ChiffreListener());
+        bTi.setText("bTi");
+        bTi.addActionListener(new ChiffreListener());
         
         bLa.setText("bLa");
         bLa.addActionListener(new ChiffreListener());
@@ -126,7 +141,7 @@ public class NewPartition extends JPanel {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addComponent(bLa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bti, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bTi, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bDo1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,7 +161,7 @@ public class NewPartition extends JPanel {
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addComponent(bLa1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bti1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bTi1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(bDo2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -184,7 +199,7 @@ public class NewPartition extends JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bLa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bti, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bTi, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bDo1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bRe1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bMi1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,7 +208,7 @@ public class NewPartition extends JPanel {
                     .addComponent(bFa1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bSo1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bLa1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bti1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bTi1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bDo2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -235,10 +250,61 @@ public class NewPartition extends JPanel {
 
 	class ChiffreListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e){
+	    	
+	    	
 	    	String str = ((JButton)e.getSource()).getText();
+	    	str = str.substring(1);
+	    	
+	    	String noteImg = new String();
+	    	noteImg = str+".jpg";
+
 	    	if(!(tfNotes.getText().length() == 0))
 	    		str = tfNotes.getText() + " - "+ str;
 	    	tfNotes.setText(str);
+	    	
+	    	
+	    	try {
+				image = ImageIO.read(NewPartition.class.getResource("../img/"+noteImg));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    	
+	    	labelTest = new JLabel(new ImageIcon(image));
+	    	labelTest.setSize(100, 100);
+	    	if(i > 8) {
+//	    		JOptionPane.showMessageDialog(tfName, "i < 5, i="+i);
+	    		JOptionPane.showMessageDialog(tfName, "i="+i+", gridnote="+gridNote.getRows());
+//	    		gridNote.setColumns(0);
+//	    		gridNote.setRows()+1;
+	    	}else {
+	    		gridNote.setColumns(0);
+	    		gridNote.setRows(2);
+	    		JOptionPane.showMessageDialog(tfName, "i > 5, i="+i);
+	    	}
+	    	panel2.setLayout(gridNote);
+	    	panel2.add(labelTest);
+	    	i++;
+	    	
+	    	
+//	    	if(noteImg.equals("Re.jpg")) {
+//	    		labelTest.setLocation(150, 150);
+//	    	}
+//	    	else
+//	    	{
+//	    		labelTest.setLocation(10, 10);
+//	    	}
+	    	
+	    	
+//	    	panel2.add(new JButton("Button 1"));
+//	    	panel2.add(new JButton("Button 2"));
+//	    	panel2.add(new JButton("Button 3"));
+//	    	panel2.add(new JButton("Long-Named Button 4"));
+//	    	panel2.add(new JButton("5"));
+	    	
+//	    	panel2.add(labelTest);
+            panel2.repaint();
+            panel2.validate();
 	   }
 	 }
 	
