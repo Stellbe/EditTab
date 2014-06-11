@@ -2,6 +2,7 @@ package vues;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -41,6 +42,7 @@ public class NewPartition extends JPanel {
 	private BufferedImage image;
 	private GridLayout gridNote;
 	int i = 0;
+	int l = 1;
 	
 	public NewPartition() {
 		setBackground(Color.ORANGE);
@@ -71,6 +73,7 @@ public class NewPartition extends JPanel {
         panel2 = new JPanel();
         
         gridNote = new GridLayout(1, 0);
+        
         
         
         
@@ -107,6 +110,10 @@ public class NewPartition extends JPanel {
         btClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNotes.setText(null);
+                panel2.removeAll();
+                
+                panel2.repaint();
+                panel2.validate();
             }
         });
 
@@ -217,7 +224,7 @@ public class NewPartition extends JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panel2.setBackground(new java.awt.Color(13, 112, 241));
+//        panel2.setBackground(new java.awt.Color(13, 112, 241));
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -272,18 +279,37 @@ public class NewPartition extends JPanel {
 	    	
 	    	labelTest = new JLabel(new ImageIcon(image));
 	    	labelTest.setSize(100, 100);
-	    	if(i > 8) {
-//	    		JOptionPane.showMessageDialog(tfName, "i < 5, i="+i);
-	    		JOptionPane.showMessageDialog(tfName, "i="+i+", gridnote="+gridNote.getRows());
-//	    		gridNote.setColumns(0);
-//	    		gridNote.setRows()+1;
+	    	
+	    	
+	    	if(i%2==0) {
+	    		labelTest.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+		    	labelTest.setBackground(Color.BLACK);
+		    	labelTest.setOpaque(true);
 	    	}else {
-	    		gridNote.setColumns(0);
-	    		gridNote.setRows(2);
-	    		JOptionPane.showMessageDialog(tfName, "i > 5, i="+i);
+	    		labelTest.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+		    	labelTest.setBackground(Color.BLUE);
+		    	labelTest.setOpaque(true);
 	    	}
+	    	
+	    	if(i >= 10) {
+	    		l++;
+//	    		JOptionPane.showMessageDialog(tfName, "i < 5, i="+i);
+//	    		JOptionPane.showMessageDialog(tfName, "i="+i+", gridnote="+gridNote.getRows());
+//	    		gridNote.setColumns(0);
+	    		gridNote.setRows(l);
+	    		i = 0;
+	    		gridNote.setColumns(i);
+	    	}else {
+	    		
+//	    		gridNote.setColumns(i);
+//	    		gridNote.setRows(2);
+//	    		JOptionPane.showMessageDialog(tfName, "i > 5, i="+i);
+	    	}
+		    panel2.applyComponentOrientation( ComponentOrientation.LEFT_TO_RIGHT);
 	    	panel2.setLayout(gridNote);
+	    	
 	    	panel2.add(labelTest);
+
 	    	i++;
 	    	
 	    	
