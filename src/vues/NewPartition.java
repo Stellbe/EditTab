@@ -7,6 +7,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -21,11 +23,39 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.DropMode;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.Position;
+import javax.swing.text.Segment;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.CDATASection;
+import org.w3c.dom.Comment;
+import org.w3c.dom.DOMConfiguration;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.DocumentFragment;
+import org.w3c.dom.DocumentType;
+import org.w3c.dom.EntityReference;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.ProcessingInstruction;
+import org.w3c.dom.Text;
+import org.w3c.dom.UserDataHandler;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -73,7 +103,7 @@ public class NewPartition extends JPanel {
         panel2 = new JPanel();
         
         gridNote = new GridLayout(1, 0);
-        
+      
         
         
         
@@ -114,6 +144,12 @@ public class NewPartition extends JPanel {
                 
                 panel2.repaint();
                 panel2.validate();
+            }
+        });
+        
+        btSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printDoc();
             }
         });
 
@@ -305,6 +341,7 @@ public class NewPartition extends JPanel {
 //	    		gridNote.setRows(2);
 //	    		JOptionPane.showMessageDialog(tfName, "i > 5, i="+i);
 	    	}
+	    	panel2.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		    panel2.applyComponentOrientation( ComponentOrientation.LEFT_TO_RIGHT);
 	    	panel2.setLayout(gridNote);
 	    	
@@ -345,4 +382,38 @@ public class NewPartition extends JPanel {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void printDoc() {
+		PrinterJob pj = PrinterJob.getPrinterJob();
+		pj.setJobName("Print Component");
+		
+		pj.setPrintable(new Printable() {
+			
+			
+			@Override
+			public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
+					throws PrinterException {
+				// TODO Auto-generated method stub
+				if (pageIndex > 0) {
+					return Printable.NO_SUCH_PAGE;
+				}
+				
+				Graphics2D g2 = (Graphics2D) graphics;
+				g2.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+				panel2.paint(g2);
+				return Printable.PAGE_EXISTS;
+				
+			}
+		});
+		
+		if (pj.printDialog() == false)
+			return;
+		
+		try {
+			pj.print();
+		} catch (PrinterException ex) {
+			// handle exception
+		}
+	}
+	
 }
