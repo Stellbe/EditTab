@@ -1,17 +1,20 @@
-package application;
+package com.editab;
 
 import javax.swing.SwingUtilities;
 
-import vues.FenetrePrincipale;
+import com.editab.views.MainFrame;
 
-public class Principale {
+public class Editab {
+
 	public static void main(String[] args) {
+		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				new FenetrePrincipale();
+				new MainFrame();
 			}
+			
 		});
 
 	}
