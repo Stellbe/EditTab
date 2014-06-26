@@ -8,7 +8,7 @@ import java.util.Observable;
 
 public class Score extends Observable{
 	
-	// TODO : Might be better to consider note as an enum
+	// TODO : Might be better to consider note as an 
 	private List<String> note = new ArrayList<String> ();
 	
 	public List<String> getNote() {
@@ -30,7 +30,4 @@ public class Score extends Observable{
 		setChanged();
 		notifyObservers();
 	}
-	
-	
-	
 }

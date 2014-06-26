@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
+import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -30,7 +31,6 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-import com.editab.models.PageFormat;
 import com.editab.models.Score;
 
 public class MusicScorePanel extends JPanel implements Observer {
@@ -120,7 +120,7 @@ public class MusicScorePanel extends JPanel implements Observer {
                 savePartition();
             }
         });
-		saveButton.addActionListener(noteListener);
+		
 		leftPanel.add(saveButton);
 		
 		add(leftPanel);
@@ -182,7 +182,6 @@ public class MusicScorePanel extends JPanel implements Observer {
 		
 		pj.setPrintable(new Printable() {
 			
-			
 			@Override
 			public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
 					throws PrinterException {
@@ -195,9 +194,8 @@ public class MusicScorePanel extends JPanel implements Observer {
 				g2.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 				rightPanel.paint(g2);
 				return Printable.PAGE_EXISTS;
-				
 			}
-		});
+		}); 
 		
 		if (pj.printDialog() == false)
 			return;
