@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import javax.swing.JOptionPane;
+
 
 public class Score extends Observable{
 	
@@ -24,5 +24,13 @@ public class Score extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	
+	public void clearNote() {
+		note.clear();
+		setChanged();
+		notifyObservers();
+	}
+	
+	
 	
 }
